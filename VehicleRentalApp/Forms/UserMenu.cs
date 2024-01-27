@@ -37,5 +37,12 @@ namespace VehicleRentalApp
             userMotorcycles.Show();
             this.Hide();
         }
+
+        private void btnMyRents_Click(object sender, EventArgs e)
+        {
+            Forms.UserRents userRents = new Forms.UserRents(CurrentLoggedUserID);
+            userRents.Show();
+            this.Hide();
+        }
     }
 }

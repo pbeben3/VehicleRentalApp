@@ -5,8 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OfficeOpenXml;
 
-namespace VehicleRentalApp
+namespace VehicleRentalApp.Classes
 {
     internal class Rents
     {
@@ -58,12 +59,12 @@ namespace VehicleRentalApp
                     catch (Exception ex)
                     {
 
-                        MessageBox.Show($"Błąd przy zmienianiu statusu samochodu:{ex}");
+                        MessageBox.Show($"Błąd przy zmienianiu statusu pojazdu:{ex}");
                     }
                 }
             }
         }
-        public static void MapDataToObject(int id)
+        public static Rents MapDataToObject(int id)
         {
             string getDataQuery = $"SELECT RentID, UserID, VehicleID, RentDate, ReturnDate, Cost, Finished, Fine FROM Rents WHERE RentID = {id}";
             using (SqlConnection connection = DBConnection.GetConnection())
@@ -86,12 +87,15 @@ namespace VehicleRentalApp
                                 string finished = reader["Finished"].ToString();
                                 int fine = Convert.ToInt32(reader["Fine"]);
                                 Rents rent = new Rents(rentID, userID, vehicleID, rentDate, returnDate, cost, finished, fine);
+                                return rent;
                             }
+                            return null;
                         }
                         catch (Exception ex)
                         {
-                            
                             MessageBox.Show($"Błąd: {ex}");
+                            return null;
+
                         }
                     }
                 }
@@ -101,16 +105,16 @@ namespace VehicleRentalApp
         {
             DateTime currentDate = DateTime.Now;
             int CostPerDay = Vehicle.GetVehicleCost(rent.VehicleID);
-            TimeSpan days = rent.ReturnDate.Subtract(currentDate);
-            int DifferenceOfDays = days.Days;
+            //TimeSpan days = rent.ReturnDate.Subtract(currentDate);
+            TimeSpan daysDifference = rent.ReturnDate - rent.RentDate;
+            int DifferenceOfDays = daysDifference.Days;
             int cost = CostPerDay * DifferenceOfDays;
             if (currentDate.Year != rent.ReturnDate.Year || currentDate.Day != rent.ReturnDate.Day)
             {
-                TimeSpan daysWithoutFine = rent.ReturnDate.Subtract(rent.RentDate);
-                DifferenceOfDays = daysWithoutFine.Days;
-                TimeSpan daysWithFine = rent.ReturnDate.Subtract(currentDate);
+                int daysWithoutFine = DifferenceOfDays;
+                TimeSpan daysWithFine = currentDate - rent.ReturnDate;
                 int daysWithFineDifference = daysWithFine.Days;
-                cost = (CostPerDay * DifferenceOfDays) + ((CostPerDay * 2) * daysWithFineDifference);
+                cost = (CostPerDay * daysWithoutFine) + ((CostPerDay * 2) * daysWithFineDifference);
             }
 
             string finishRentQuery = $"UPDATE Rents SET Cost = {cost}, Finished = 'Yes' WHERE RentID = {rent.RentID};";
@@ -127,6 +131,19 @@ namespace VehicleRentalApp
                     {
 
                         MessageBox.Show($"Błąd przy kończeniu wypożyczenia: {ex}");
+                    }
+                }
+                string changeVehicleStatus = $"UPDATE Vehicles SET Availability = 1 WHERE VehicleID = {rent.VehicleID};";
+                using (SqlCommand changeVehicleStatusCommand = new SqlCommand(changeVehicleStatus, connection))
+                {
+                    try
+                    {
+                        changeVehicleStatusCommand.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show($"Błąd przy zmianie statusu pojazdu: {ex}");
                     }
                 }
             }
@@ -157,8 +174,97 @@ namespace VehicleRentalApp
                     }
                 }
             }
-            return newID+1;
+            return newID + 1;
+        }
+        public static DataTable GetActiveRentsData()
+        {
+            string showActiveRentsData = $"SELECT R.RentID, U.UserID, U.Name, U.LastName, R.VehicleID, R.RentDate, R.ReturnDate, R.Cost, R.Finished, R.Fine FROM Rents R inner join Users U on R.UserID=U.UserID WHERE R.Finished = 'No'";
+            DataTable dt = new DataTable();
+            using (SqlConnection connection = DBConnection.GetConnection())
+            {
+                connection.Open();
+                try
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(showActiveRentsData, connection);
+                    adapter.Fill(dt);
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show($"Błąd podczas ładowania danych aktywnych wypożyczeń: {ex}");
+                }
+            }
+            return dt;
+        }
+        public static DataTable GetFinishedRentsData()
+        {
+            string showFinishedRentsData = $"SELECT R.RentID, U.UserID, U.Name, U.LastName, R.VehicleID, R.RentDate, R.ReturnDate, R.Cost, R.Finished, R.Fine FROM Rents R inner join Users U on R.UserID=U.UserID WHERE R.Finished = 'Yes'";
+            DataTable dt = new DataTable();
+            using (SqlConnection connection = DBConnection.GetConnection())
+            {
+                connection.Open();
+                try
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(showFinishedRentsData, connection);
+                    adapter.Fill(dt);
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show($"Błąd podczas ładowania danych zakończonych wypożyczeń: {ex}");
+                }
+            }
+            return dt;
+        }
+        public static DataTable GetUserRentsData(int id)
+        {
+            string showUserRentsData = $"SELECT R.RentID, U.UserID, U.Name, U.LastName, R.VehicleID, R.RentDate, R.ReturnDate, R.Cost, R.Finished, R.Fine FROM Rents R inner join Users U on R.UserID=U.UserID WHERE U.UserID = {id}";
+            DataTable dt = new DataTable();
+            using (SqlConnection connection = DBConnection.GetConnection())
+            {
+                connection.Open();
+                try
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter(showUserRentsData, connection);
+                    adapter.Fill(dt);
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show($"Błąd podczas ładowania danych wypozyczeń użytkownika: {ex}");
+                }
+            }
+            return dt;
         }
 
+        public void PrintReceipExcel(Rents rent)
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, "Paragon.xlsx");
+            DateTime data = DateTime.Now;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (var package = new ExcelPackage())
+            {
+                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Paragon");
+
+                worksheet.Cells["A1"].Value = "Paragon fiskalny";
+
+                worksheet.Cells["A2"].Value = "Wystawiający";
+                worksheet.Cells["B2"].Value = "VehicleRental S.A";
+
+                worksheet.Cells["A3"].Value = "ID klienta:";
+                worksheet.Cells["B3"].Value = rent.UserID;
+
+                worksheet.Cells["A4"].Value = "Kwota do zapłaty:";
+                worksheet.Cells["B4"].Value = rent.Cost;
+
+                worksheet.Cells["A5"].Value = "Data wystawienia:";
+                worksheet.Cells["B5"].Value = data;
+
+                package.SaveAs(new FileInfo(filePath));
+            }
+            MessageBox.Show("Paragon został zapisany do pliku .xls o ścieżce: repos\\VehicleRentalApp\\VehicleRentalApp\\bin\\Debug\\net7.0-windows\\Paragon.xlsx\" ");
+        }
     }
+
+
 }

@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VehicleRentalApp
+namespace VehicleRentalApp.Classes
 {
     internal class Car : Vehicle
     {
@@ -18,8 +18,8 @@ namespace VehicleRentalApp
         public string Gearbox { get; set; }
 
 
-        public Car(int vehicleID,int availability, string brand,string model,int productionYear,string color, int power, int engineCapacity,string bodyType, string fuel, int doors, string gearbox, int costPerDay)
-            : base (vehicleID, availability, brand, model, productionYear, color, power, engineCapacity, costPerDay )
+        public Car(int vehicleID, int availability, string brand, string model, int productionYear, string color, int power, int engineCapacity, string bodyType, string fuel, int doors, string gearbox, int costPerDay)
+            : base(vehicleID, availability, brand, model, productionYear, color, power, engineCapacity, costPerDay)
         {
             BodyType = bodyType;
             Fuel = fuel;
@@ -27,7 +27,7 @@ namespace VehicleRentalApp
             Gearbox = gearbox;
         }
 
-        public override void  AddVehicle<T>(T Vehicle) 
+        public override void AddVehicle<T>(T Vehicle)
         {
             if (Vehicle is Car car)
             {
@@ -74,7 +74,7 @@ namespace VehicleRentalApp
         {
 
         }
-        public  static DataTable ShowVehicleData()
+        public static DataTable ShowVehicleData()
         {
             string showCarsQuery = $"SELECT V.VehicleID, V.Availability, V.Brand, V.Model, V.ProductionYear, V.Color, V.Power, V.EngineCapacity, C.BodyType, C.Fuel, C.Doors, C.Gearbox, V.CostPerDay  FROM Vehicles V INNER JOIN Cars C ON V.VehicleID = C.VehicleID;";
             DataTable dt = new DataTable();

@@ -31,7 +31,7 @@
             btnUsers = new Button();
             btnVehicles = new Button();
             btnRents = new Button();
-            button3 = new Button();
+            btnFinishedRents = new Button();
             label3 = new Label();
             textBox1 = new TextBox();
             SuspendLayout();
@@ -74,22 +74,23 @@
             btnRents.Name = "btnRents";
             btnRents.Size = new Size(237, 40);
             btnRents.TabIndex = 9;
-            btnRents.Text = "Wypożyczenia";
+            btnRents.Text = "Wypożyczenia Aktywne";
             btnRents.UseVisualStyleBackColor = false;
             btnRents.Click += btnRents_Click;
             // 
-            // button3
+            // btnFinishedRents
             // 
-            button3.BackColor = Color.PeachPuff;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            button3.ForeColor = SystemColors.ControlText;
-            button3.Location = new Point(28, 265);
-            button3.Name = "button3";
-            button3.Size = new Size(237, 40);
-            button3.TabIndex = 10;
-            button3.Text = "Zaloguj się";
-            button3.UseVisualStyleBackColor = false;
+            btnFinishedRents.BackColor = Color.PeachPuff;
+            btnFinishedRents.FlatStyle = FlatStyle.Flat;
+            btnFinishedRents.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnFinishedRents.ForeColor = SystemColors.ControlText;
+            btnFinishedRents.Location = new Point(28, 265);
+            btnFinishedRents.Name = "btnFinishedRents";
+            btnFinishedRents.Size = new Size(237, 40);
+            btnFinishedRents.TabIndex = 10;
+            btnFinishedRents.Text = "Historia Wypożyczeń";
+            btnFinishedRents.UseVisualStyleBackColor = false;
+            btnFinishedRents.Click += btnFinishedRents_Click;
             // 
             // label3
             // 
@@ -121,7 +122,7 @@
             ClientSize = new Size(292, 447);
             Controls.Add(textBox1);
             Controls.Add(label3);
-            Controls.Add(button3);
+            Controls.Add(btnFinishedRents);
             Controls.Add(btnRents);
             Controls.Add(btnVehicles);
             Controls.Add(btnUsers);
@@ -136,7 +137,7 @@
         private Button btnUsers;
         private Button btnVehicles;
         private Button btnRents;
-        private Button button3;
+        private Button btnFinishedRents;
         private Label label3;
         private TextBox textBox1;
     }

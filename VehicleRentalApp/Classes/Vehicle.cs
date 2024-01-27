@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VehicleRentalApp
+namespace VehicleRentalApp.Classes
 {
     public enum Type
     {
@@ -25,7 +25,7 @@ namespace VehicleRentalApp
         public int EngineCapacity { get; set; }
         public int CostPerDay { get; set; }
 
-        protected Vehicle(int vehicleID,int availability, string brand, string model, int productionYear, string color, int power, int engineCapacity, int costPerDay)
+        protected Vehicle(int vehicleID, int availability, string brand, string model, int productionYear, string color, int power, int engineCapacity, int costPerDay)
         {
             VehicleID = vehicleID;
             Availability = availability;

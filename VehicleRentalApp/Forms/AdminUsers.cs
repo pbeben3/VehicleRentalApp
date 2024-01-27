@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using VehicleRentalApp.Classes;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
@@ -25,7 +26,7 @@ namespace VehicleRentalApp
 
         private void AdminUsers_Load(object sender, EventArgs e)
         {
-            dataUsers.DataSource = User.ShowUsersData();
+            dataUsers.DataSource = Classes.User.ShowUsersData();
         }
 
         private void labelMenu_Click(object sender, EventArgs e)
@@ -39,10 +40,10 @@ namespace VehicleRentalApp
         {
             if (validateAdedUser() == true)
             {
-                User user1 = new User(Convert.ToInt32(txtUserID.Text), txtName.Text, txtLastName.Text, Convert.ToInt32(txtAge.Text), txtAdress.Text, txtEmail.Text, txtPhoneNumber.Text, (Role)Enum.Parse(typeof(Role), txtRole.Text), txtLogin.Text, txtPassword.Text);
+                Classes.User user1 = new Classes.User(Convert.ToInt32(txtUserID.Text), txtName.Text, txtLastName.Text, Convert.ToInt32(txtAge.Text), txtAdress.Text, txtEmail.Text, txtPhoneNumber.Text, (Role)Enum.Parse(typeof(Role), txtRole.Text), txtLogin.Text, txtPassword.Text);
                 user1.AddUserToDatabase(user1);
                 MessageBox.Show("Uzytkownik dodany do bazy");
-                dataUsers.DataSource =  User.ShowUsersData();
+                dataUsers.DataSource =  Classes.User.ShowUsersData();
             }
             else
             {
@@ -52,15 +53,15 @@ namespace VehicleRentalApp
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            if (User.CheckIDAvailability(Convert.ToInt32(txtDeleteUserID.Text)) == true)
+            if (Classes.User.CheckIDAvailability(Convert.ToInt32(txtDeleteUserID.Text)) == true)
             {
                 MessageBox.Show("Uzytkownik o takim ID nie jest zapisany w bazie");
             }
             else
             {
-                User.DeleteUserFromDatabase(Convert.ToInt32(txtDeleteUserID.Text));
+                Classes.User.DeleteUserFromDatabase(Convert.ToInt32(txtDeleteUserID.Text));
                 MessageBox.Show("Uzytkownik usunięty z bazy danych");
-                dataUsers.DataSource = User.ShowUsersData();
+                dataUsers.DataSource = Classes.User.ShowUsersData();
             }
 
         }
@@ -68,7 +69,7 @@ namespace VehicleRentalApp
         {
             bool validationPositive = true;
             // UserID validation
-            if (User.CheckIDAvailability(Convert.ToInt32(txtUserID.Text)) != true || txtUserID.Text == null)
+            if (Classes.User.CheckIDAvailability(Convert.ToInt32(txtUserID.Text)) != true || txtUserID.Text == null)
             {
                 ErrorProvider errorProvider = new ErrorProvider();
                 errorProvider.SetError(txtUserID, "To ID użytkownika już istnieje w bazie danych");

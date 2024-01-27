@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VehicleRentalApp.Classes;
 
 namespace VehicleRentalApp
 {
-    public partial class AddCar : Form
+    public partial class AddMotorcycle : Form
     {
-        public AddCar()
+        public AddMotorcycle()
         {
             InitializeComponent();
         }
@@ -22,12 +23,26 @@ namespace VehicleRentalApp
             this.Close();
         }
 
+        private void btnAddUser_Click(object sender, EventArgs e)
+        {
+            if (validateMotorcycle() == true)
+            {
+                Motorcycle motorcycle = new Motorcycle(Convert.ToInt32(txtVehicleID.Text), 1, txtBrand.Text, txtModel.Text, Convert.ToInt32(TxtPYear.Text), txtColor.Text, Convert.ToInt32(txtPower.Text), Convert.ToInt32(txtECapacity.Text), txtType.Text, txtEType.Text, txtRLicense.Text, Convert.ToInt32(txtCostPerDay.Text));
+                motorcycle.AddVehicle(motorcycle);
+                MessageBox.Show("Pomyślnie dodano motocykl, odśwież bazę");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Wprowadź poprawne dane");
+            }
+        }
 
-        private bool validateCar()
+        private bool validateMotorcycle()
         {
             bool validationPositive = true;
             // VehicleID valdiation
-            if (Car.CheckIDAvailability(Convert.ToInt32(txtVehicleID.Text)) != true)
+            if (Motorcycle.CheckIDAvailability(Convert.ToInt32(txtVehicleID.Text)) != true)
             {
                 ErrorProvider errorProvider = new ErrorProvider();
                 errorProvider.SetError(txtVehicleID, "ID pojazdu już istnieje w bazie danych");
@@ -37,7 +52,7 @@ namespace VehicleRentalApp
             if (txtBrand.Text == "" || txtBrand.Text.Length < 3)
             {
                 ErrorProvider errorProvider1 = new ErrorProvider();
-                errorProvider1.SetError(txtBrand, "Niepoprawna nazwa samochodu");
+                errorProvider1.SetError(txtBrand, "Niepoprawna nazwa motocykla");
                 validationPositive = false;
             }
             // Model validation
@@ -83,50 +98,33 @@ namespace VehicleRentalApp
                 errorProvider7.SetError(txtCostPerDay, "Niepoprawy dzienny koszt wypożyczenia");
                 validationPositive = false;
             }
-            //BodyType validation
-            if (txtBType.Text == "" || txtBType.Text.Length < 4)
+            //Type validation
+            if (txtType.Text == "" || txtType.Text.Length < 4)
             {
                 ErrorProvider errorProvider8 = new ErrorProvider();
-                errorProvider8.SetError(txtBType, "Niepoprawy typ nadwozia samochodu");
+                errorProvider8.SetError(txtType, "Niepoprawy typ motocykla");
                 validationPositive = false;
             }
-            //Fuel validation
-            if (txtFuel.Text == "" || txtFuel.Text.Length < 2)
+            //EngineType validation
+            if (txtEType.Text == "" || txtEType.Text.Length < 2)
             {
                 ErrorProvider errorProvider9 = new ErrorProvider();
-                errorProvider9.SetError(txtFuel, "Niepoprawy typ paliwa");
+                errorProvider9.SetError(txtEType, "Niepoprawy typ silnika");
                 validationPositive = false;
             }
-            //Doors validation
-            if (txtDoors.Text == "" || Convert.ToInt32(txtDoors.Text) < 2)
+            //RequiredLicense validation
+            if (txtRLicense.Text == "" || txtRLicense.Text.Length < 1)
             {
                 ErrorProvider errorProvider10 = new ErrorProvider();
-                errorProvider10.SetError(txtDoors, "Niepoprawna ilość drzwi");
-                validationPositive = false;
-            }
-            // Gearbox validation
-            if (txtGearbox.Text == "" || txtGearbox.Text.Length < 1)
-            {
-                ErrorProvider errorProvider10 = new ErrorProvider();
-                errorProvider10.SetError(txtGearbox, "Niepoprawna skrzynia biegów");
+                errorProvider10.SetError(txtRLicense, "Niepoprawy rodzaj uprawnień");
                 validationPositive = false;
             }
             return validationPositive;
         }
 
-        private void btnAddUser_Click(object sender, EventArgs e)
+        private void AddMotorcycle_Closed(object sender, FormClosedEventArgs e)
         {
-            if (validateCar() == true)
-            {
-                Car car = new Car(Convert.ToInt32(txtVehicleID.Text), 1, txtBrand.Text, txtModel.Text, Convert.ToInt32(TxtPYear.Text), txtColor.Text, Convert.ToInt32(txtPower.Text), Convert.ToInt32(txtECapacity.Text), txtBType.Text, txtFuel.Text, Convert.ToInt32(txtDoors.Text), txtGearbox.Text, Convert.ToInt32(txtCostPerDay.Text));
-                car.AddVehicle(car);
-                MessageBox.Show("Pomyślnie dodano samochód, odśwież bazę");
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Wprowadź poprawne dane");
-            }
+            
         }
     }
 }

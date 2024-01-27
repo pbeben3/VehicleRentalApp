@@ -75,6 +75,7 @@
             btnMyRents.TabIndex = 16;
             btnMyRents.Text = "Moje Wypożyczenia";
             btnMyRents.UseVisualStyleBackColor = false;
+            btnMyRents.Click += btnMyRents_Click;
             // 
             // label3
             // 

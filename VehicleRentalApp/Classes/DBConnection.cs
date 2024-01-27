@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VehicleRentalApp
+namespace VehicleRentalApp.Classes
 {
     public static class DBConnection
     {

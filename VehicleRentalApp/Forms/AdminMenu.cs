@@ -40,7 +40,16 @@ namespace VehicleRentalApp
 
         private void btnRents_Click(object sender, EventArgs e)
         {
+            Forms.AdminActiveRents formActiveRents = new Forms.AdminActiveRents();
+            formActiveRents.Show();
+            this.Hide();
+        }
 
+        private void btnFinishedRents_Click(object sender, EventArgs e)
+        {
+            Forms.AdminFinishedRents adminFinishedRents = new Forms.AdminFinishedRents();
+            adminFinishedRents.Show();
+            this.Hide();
         }
     }
 }

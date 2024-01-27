@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VehicleRentalApp
+namespace VehicleRentalApp.Classes
 {
     internal class Motorcycle : Vehicle
     {
@@ -15,8 +15,8 @@ namespace VehicleRentalApp
         public string RequiredLicense { get; set; }
 
 
-        public Motorcycle(int vehicleID,int availability, string brand, string model, int productionYear, string color, int power, int engineCapacity, string type, string engineType, string requiredLicense, int costPerDay)
-            : base(vehicleID, availability, brand, model,productionYear,color,power,engineCapacity, costPerDay)
+        public Motorcycle(int vehicleID, int availability, string brand, string model, int productionYear, string color, int power, int engineCapacity, string type, string engineType, string requiredLicense, int costPerDay)
+            : base(vehicleID, availability, brand, model, productionYear, color, power, engineCapacity, costPerDay)
         {
             Type = type;
             EngineType = engineType;
@@ -67,7 +67,7 @@ namespace VehicleRentalApp
             }
         }
         public override void UpdateVehicle<T>(T vehicle)
-        {  
+        {
 
         }
         public static DataTable ShowVehicleData()

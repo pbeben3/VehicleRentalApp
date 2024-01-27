@@ -7,7 +7,7 @@ using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VehicleRentalApp
+namespace VehicleRentalApp.Classes
 {
     public enum Role
     {
@@ -27,7 +27,7 @@ namespace VehicleRentalApp
         public string Login { get; set; }
         public string Password { get; set; }
 
- 
+
         public User(int userId, string name, string lastName, int age, string adress, string email, string phoneNumber, Role role, string login, string password)
         {
             UserId = userId;
@@ -48,21 +48,21 @@ namespace VehicleRentalApp
             using (SqlConnection connection = DBConnection.GetConnection())
             {
 
-                    connection.Open();
-                    string deleteUserQuery = $"DELETE From Users WHERE UserID={id};";
-                    using (SqlCommand deleteUserCommand = new SqlCommand(deleteUserQuery, connection))
+                connection.Open();
+                string deleteUserQuery = $"DELETE From Users WHERE UserID={id};";
+                using (SqlCommand deleteUserCommand = new SqlCommand(deleteUserQuery, connection))
+                {
+                    try
                     {
-                        try
-                        {
-                            deleteUserCommand.ExecuteNonQuery();
-                        }
-                        catch (Exception ex)
-                        {
-
-                            MessageBox.Show($"Błąd przy usuwaniu z bazy danych użytkolwnika: {ex}");
-                        }
+                        deleteUserCommand.ExecuteNonQuery();
                     }
-                
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show($"Błąd przy usuwaniu z bazy danych użytkolwnika: {ex}");
+                    }
+                }
+
 
             }
         }
@@ -87,7 +87,7 @@ namespace VehicleRentalApp
             }
         }
 
-        public static  DataTable ShowUsersData()
+        public static DataTable ShowUsersData()
         {
             string showUsersQuery = $"SELECT * FROM Users;";
             DataTable dt = new DataTable();
@@ -111,8 +111,8 @@ namespace VehicleRentalApp
         public static bool CheckIDAvailability(int x)
         {
             string checkIdQuery = $"SELECT COUNT(*) FROM Users WHERE UserID={x};";
-            using(SqlConnection connection = DBConnection.GetConnection()) 
-            { 
+            using (SqlConnection connection = DBConnection.GetConnection())
+            {
                 connection.Open();
                 using (SqlCommand checkIdCommand = new SqlCommand(checkIdQuery, connection))
                 {
@@ -121,13 +121,13 @@ namespace VehicleRentalApp
                     {
                         return true;
                     }
-                    else 
+                    else
                     {
                         return false;
                     }
                 }
             }
-        } 
+        }
 
 
 
