@@ -30,5 +30,16 @@ namespace VehicleRentalApp
             userMenu.Show();
             this.Close();
         }
+
+        private void btnBook_Click(object sender, EventArgs e)
+        {
+            DateTime RentDateParsed;
+            DateTime ReturnDateParsed;
+            DateTime.TryParseExact(txtRentDate.Text, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out RentDateParsed);
+            DateTime.TryParseExact(txtReturnDate.Text, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out ReturnDateParsed);
+            Rents rent = new Rents(Rents.GetNewID(), CurrentLoggedUserID, Convert.ToInt32(txtCarID.Text), RentDateParsed, ReturnDateParsed);
+            rent.AddRentToDatabase(rent);
+            dataCars.DataSource = Car.ShowAvailableCarData();
+        }
     }
 }

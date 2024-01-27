@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,35 @@ namespace VehicleRentalApp
         public abstract void UpdateVehicle<T>(T vehicle) where T : Vehicle;
 
         //public static DataTable ShowVehicleData() {  return new DataTable(); }
+
+        public static int GetVehicleCost(int id)
+        {
+            string getCostQuery = $"SELECT CostPerDay FROM Vehicles WHERE VehicleID = {id};";
+            int cost = 0;
+            using (SqlConnection connection = DBConnection.GetConnection())
+            {
+                connection.Open();
+                using (SqlCommand getCostCommand = new SqlCommand(getCostQuery, connection))
+                {
+                    using (SqlDataReader reader = getCostCommand.ExecuteReader())
+                    {
+                        try
+                        {
+                            while (reader.Read())
+                            {
+                                cost = Convert.ToInt32(reader["CostPerDay"]);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                            MessageBox.Show($"Błąd: {ex}");
+                        }
+                    }
+                }
+            }
+            return cost;
+        }
 
     }
 

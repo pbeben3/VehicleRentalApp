@@ -184,6 +184,7 @@
             btnBook.TabIndex = 69;
             btnBook.Text = "Rezerwuj";
             btnBook.UseVisualStyleBackColor = false;
+            btnBook.Click += btnBook_Click;
             // 
             // UserMotorcycles
             // 

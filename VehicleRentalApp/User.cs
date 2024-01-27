@@ -59,7 +59,7 @@ namespace VehicleRentalApp
                         catch (Exception ex)
                         {
 
-                            Console.WriteLine($"Błąd przy usuwaniu z bazy danych użytkolwnika: {ex}");
+                            MessageBox.Show($"Błąd przy usuwaniu z bazy danych użytkolwnika: {ex}");
                         }
                     }
                 

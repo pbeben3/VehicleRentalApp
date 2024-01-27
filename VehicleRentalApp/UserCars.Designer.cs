@@ -37,7 +37,7 @@
             txtRentDate = new TextBox();
             label1 = new Label();
             panel2 = new Panel();
-            txtMotorcycleID = new TextBox();
+            txtCarID = new TextBox();
             label2 = new Label();
             panel1 = new Panel();
             label12 = new Label();
@@ -76,6 +76,7 @@
             btnBook.TabIndex = 80;
             btnBook.Text = "Rezerwuj";
             btnBook.UseVisualStyleBackColor = false;
+            btnBook.Click += btnBook_Click;
             // 
             // txtReturnDate
             // 
@@ -135,16 +136,16 @@
             panel2.Size = new Size(300, 1);
             panel2.TabIndex = 74;
             // 
-            // txtMotorcycleID
+            // txtCarID
             // 
-            txtMotorcycleID.BackColor = Color.PeachPuff;
-            txtMotorcycleID.BorderStyle = BorderStyle.None;
-            txtMotorcycleID.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtMotorcycleID.Location = new Point(574, 358);
-            txtMotorcycleID.Multiline = true;
-            txtMotorcycleID.Name = "txtMotorcycleID";
-            txtMotorcycleID.Size = new Size(177, 24);
-            txtMotorcycleID.TabIndex = 73;
+            txtCarID.BackColor = Color.PeachPuff;
+            txtCarID.BorderStyle = BorderStyle.None;
+            txtCarID.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtCarID.Location = new Point(585, 358);
+            txtCarID.Multiline = true;
+            txtCarID.Name = "txtCarID";
+            txtCarID.Size = new Size(166, 24);
+            txtCarID.TabIndex = 73;
             // 
             // label2
             // 
@@ -152,9 +153,9 @@
             label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(451, 357);
             label2.Name = "label2";
-            label2.Size = new Size(126, 25);
+            label2.Size = new Size(139, 25);
             label2.TabIndex = 72;
-            label2.Text = "ID Motocykla:";
+            label2.Text = "ID Samochodu:";
             // 
             // panel1
             // 
@@ -199,7 +200,7 @@
             Controls.Add(txtRentDate);
             Controls.Add(label1);
             Controls.Add(panel2);
-            Controls.Add(txtMotorcycleID);
+            Controls.Add(txtCarID);
             Controls.Add(label2);
             Controls.Add(panel1);
             Controls.Add(label12);
@@ -226,7 +227,7 @@
         private TextBox txtRentDate;
         private Label label1;
         private Panel panel2;
-        private TextBox txtMotorcycleID;
+        private TextBox txtCarID;
         private Label label2;
         private Panel panel1;
         private Label label12;
