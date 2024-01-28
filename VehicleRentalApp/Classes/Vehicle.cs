@@ -13,8 +13,9 @@ namespace VehicleRentalApp.Classes
         Car,
         Motorcycle
     }
-    public abstract class Vehicle : IVehicleDataProvider
+    public abstract class Vehicle 
     {
+        private static readonly VehicleDatabaseManager _databaseManager = new VehicleDatabaseManager();
         public int VehicleID { get; set; }
         public int Availability { get; set; }
         public string Brand { get; set; }
@@ -38,41 +39,13 @@ namespace VehicleRentalApp.Classes
             CostPerDay = costPerDay;
         }
 
-        public abstract void AddVehicle<T>(T vehicle) where T : Vehicle;
-
-        //public static void DeleteVehicle(int id) { }
-
-        public abstract void UpdateVehicle<T>(T vehicle) where T : Vehicle;
-
-        //public static DataTable ShowVehicleData() {  return new DataTable(); }
-
         public static int GetVehicleCost(int id)
         {
-            string getCostQuery = $"SELECT CostPerDay FROM Vehicles WHERE VehicleID = {id};";
-            int cost = 0;
-            using (SqlConnection connection = DBConnection.GetConnection())
-            {
-                connection.Open();
-                using (SqlCommand getCostCommand = new SqlCommand(getCostQuery, connection))
-                {
-                    using (SqlDataReader reader = getCostCommand.ExecuteReader())
-                    {
-                        try
-                        {
-                            while (reader.Read())
-                            {
-                                cost = Convert.ToInt32(reader["CostPerDay"]);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-
-                            MessageBox.Show($"Błąd: {ex}");
-                        }
-                    }
-                }
-            }
-            return cost;
+            return _databaseManager.GetVehicleCost(id);
+        }
+        public static bool CheckIDAvailability(int x)
+        {
+            return _databaseManager.CheckIDAvailability(x);
         }
 
     }
