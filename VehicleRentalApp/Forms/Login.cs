@@ -30,63 +30,21 @@ namespace VehicleRentalApp
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string connectionString = "Data Source=LEGION;Initial Catalog=VehicleRental;Integrated Security=True";
-            if (txtLogin.Text == "" && txtPassword.Text == "")
+            int authentication = Classes.LoginManager.UserAuthentication(txtLogin.Text, txtPassword.Text);
+
+            if (authentication > 0)
             {
-                MessageBox.Show("Podaj login i hasło!");
-            }
-            else if (txtLogin.Text == "")
-            {
-                MessageBox.Show("Podaj login!");
-            }
-            else if (txtPassword.Text == "")
-            {
-                MessageBox.Show("Podaj hasło!");
-            }
-            else
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                if (authentication == 1)
                 {
-                    connection.Open();
-                    string selectDataQuery = "SELECT * FROM Users WHERE Login='" + txtLogin.Text + "' and Password='" + txtPassword.Text + "'";
-                    using (SqlCommand selectDataCommand = new SqlCommand(selectDataQuery, connection))
-                    {
-                        using (SqlDataReader reader = selectDataCommand.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                reader.Close();
-                                string selectRoleQuery = "SELECT Role FROM Users WHERE Login='" + txtLogin.Text + "' and Password='" + txtPassword.Text + "'";
-                                using (SqlCommand selectRoleCommand = new SqlCommand(selectRoleQuery, connection))
-                                {
-                                    string role = Convert.ToString(selectRoleCommand.ExecuteScalar());
-                                    if (role == "admin")
-                                    {
-                                        AdminMenu formAdmin = new AdminMenu();
-                                        formAdmin.Show();
-                                        this.Hide();
-                                    }
-                                    else
-                                    {
-                                        string getUserIDQuery = "SELECT UserID FROM Users WHERE Login='" + txtLogin.Text + "' and Password='" + txtPassword.Text + "'";
-                                        using (SqlCommand getUserIDCommand = new SqlCommand(getUserIDQuery, connection))
-                                        {
-                                            CurrentLoggedUserID = Convert.ToInt32(getUserIDCommand.ExecuteScalar());
-                                        }
-                                        UserMenu form = new UserMenu(CurrentLoggedUserID);
-                                        form.Show();
-                                        this.Hide();
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Niepoprawny login lub hasło. Podaj poprawne dane!");
-                                txtLogin.Clear();
-                                txtPassword.Clear();
-                            }
-                        }
-                    }
+                    AdminMenu formAdmin = new AdminMenu();
+                    formAdmin.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    UserMenu form = new UserMenu(authentication);
+                    form.Show();
+                    this.Hide();
                 }
             }
         }
