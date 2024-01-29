@@ -34,13 +34,48 @@ namespace VehicleRentalApp
 
         private void btnBook_Click(object sender, EventArgs e)
         {
+            if (validateMotorcycleBook() == true)
+            {
+                DateTime RentDateParsed;
+                DateTime ReturnDateParsed;
+                DateTime.TryParseExact(txtRentDate.Text, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out RentDateParsed);
+                DateTime.TryParseExact(txtReturnDate.Text, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out ReturnDateParsed);
+                Rents rent = new Rents(Rents.GetNewID(), CurrentLoggedUserID, Convert.ToInt32(txtMotorcycleID.Text), RentDateParsed, ReturnDateParsed);
+                rent.AddRentToDatabase(rent);
+                dataMotorcycles.DataSource = Motorcycle.ShowAvailableMotorcyclesData();
+            }
+            else
+            {
+                MessageBox.Show("Niepoprawne dane wypożyczenia");
+            }
+        }
+        private bool validateMotorcycleBook()
+        {
+
+            bool validationPositive = true;
             DateTime RentDateParsed;
             DateTime ReturnDateParsed;
             DateTime.TryParseExact(txtRentDate.Text, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out RentDateParsed);
             DateTime.TryParseExact(txtReturnDate.Text, "yyyy-MM-dd", null, System.Globalization.DateTimeStyles.None, out ReturnDateParsed);
-            Rents rent = new Rents(Rents.GetNewID(), CurrentLoggedUserID, Convert.ToInt32(txtMotorcycleID.Text), RentDateParsed, ReturnDateParsed);
-            rent.AddRentToDatabase(rent);
-            dataMotorcycles.DataSource = Motorcycle.ShowAvailableMotorcyclesData();
+            if (string.IsNullOrWhiteSpace(txtMotorcycleID.Text) || !int.TryParse(txtMotorcycleID.Text, out _))
+            {
+                ErrorProvider errorProvider = new ErrorProvider();
+                errorProvider.SetError(txtMotorcycleID, "Niepoprawne ID pojazdu");
+                validationPositive = false;
+            }
+            if (string.IsNullOrWhiteSpace(txtRentDate.Text) || RentDateParsed < DateTime.Today)
+            {
+                ErrorProvider errorProvider1 = new ErrorProvider();
+                errorProvider1.SetError(txtRentDate, "Niepoprawna data, podaj w formacie YYYY-MM-DD");
+                validationPositive = false;
+            }
+            if (string.IsNullOrWhiteSpace(txtReturnDate.Text) || ReturnDateParsed < DateTime.Today)
+            {
+                ErrorProvider errorProvider2 = new ErrorProvider();
+                errorProvider2.SetError(txtReturnDate, "Niepoprawna data zwrotu, podaj w formacie YYYY-MM-DD");
+                validationPositive = false;
+            }
+            return validationPositive;
         }
     }
 }

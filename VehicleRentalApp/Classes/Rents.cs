@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OfficeOpenXml;
+using System.Drawing.Drawing2D;
 
 namespace VehicleRentalApp.Classes
 {
@@ -82,7 +83,7 @@ namespace VehicleRentalApp.Classes
                 worksheet.Cells["B4"].Value = rent.Cost;
 
                 worksheet.Cells["A5"].Value = "Data wystawienia:";
-                worksheet.Cells["B5"].Value = data;
+                worksheet.Cells["B5"].Value = data.ToString("yyyy-MM-dd HH:mm:ss"); 
 
                 package.SaveAs(new FileInfo(filePath));
             }

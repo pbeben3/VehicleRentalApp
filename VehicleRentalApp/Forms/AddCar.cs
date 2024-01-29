@@ -28,21 +28,21 @@ namespace VehicleRentalApp
         {
             bool validationPositive = true;
             // VehicleID valdiation
-            if (Car.CheckIDAvailability(Convert.ToInt32(txtVehicleID.Text)) != true)
+            if (Car.CheckIDAvailability(Convert.ToInt32(txtVehicleID.Text)) != true || string.IsNullOrWhiteSpace(txtVehicleID.Text))
             {
                 ErrorProvider errorProvider = new ErrorProvider();
                 errorProvider.SetError(txtVehicleID, "ID pojazdu już istnieje w bazie danych");
                 validationPositive = false;
             }
             // Brand valdiation
-            if (txtBrand.Text == "" || txtBrand.Text.Length < 3)
+            if (string.IsNullOrWhiteSpace(txtBrand.Text) || txtBrand.Text.Length < 3)
             {
                 ErrorProvider errorProvider1 = new ErrorProvider();
                 errorProvider1.SetError(txtBrand, "Niepoprawna nazwa samochodu");
                 validationPositive = false;
             }
             // Model validation
-            if (txtModel.Text == "" || txtModel.Text.Length < 2)
+            if (string.IsNullOrWhiteSpace(txtModel.Text) || txtModel.Text.Length < 2)
             {
                 ErrorProvider errorProvider2 = new ErrorProvider();
                 errorProvider2.SetError(txtModel, "Niepoprawna nazwa modelu");
@@ -50,63 +50,63 @@ namespace VehicleRentalApp
             }
             // ProductionYear validation
             int currentYear = DateTime.Now.Year;
-            if (TxtPYear.Text == "" || Convert.ToInt32(TxtPYear.Text) < 0 || Convert.ToInt32(TxtPYear.Text) > currentYear)
+            if (string.IsNullOrWhiteSpace(TxtPYear.Text) || Convert.ToInt32(TxtPYear.Text) < 0 || Convert.ToInt32(TxtPYear.Text) > currentYear)
             {
                 ErrorProvider errorProvider3 = new ErrorProvider();
                 errorProvider3.SetError(TxtPYear, "Niepoprawny rok produkcji");
                 validationPositive = false;
             }
             // Color validation
-            if (txtColor.Text == "")
+            if (string.IsNullOrWhiteSpace(txtColor.Text))
             {
                 ErrorProvider errorProvider4 = new ErrorProvider();
                 errorProvider4.SetError(txtColor, "Niepoprawny kolor");
                 validationPositive = false;
             }
             // Power validaiton
-            if (txtPower.Text == "" || Convert.ToInt32(txtPower.Text) < 0)
+            if (string.IsNullOrWhiteSpace(txtPower.Text) || Convert.ToInt32(txtPower.Text) < 0)
             {
                 ErrorProvider errorProvider5 = new ErrorProvider();
                 errorProvider5.SetError(txtPower, "Niepoprawna moc");
                 validationPositive = false;
             }
             // EngineCapacity validation
-            if (txtECapacity.Text == "" || Convert.ToInt32(txtECapacity.Text) < 0)
+            if (string.IsNullOrWhiteSpace(txtECapacity.Text) || Convert.ToInt32(txtECapacity.Text) < 0)
             {
                 ErrorProvider errorProvider6 = new ErrorProvider();
                 errorProvider6.SetError(txtECapacity, "Niepoprawna pojemność");
                 validationPositive = false;
             }
             // CostPerDay validation
-            if (txtCostPerDay.Text == "" || Convert.ToInt32(txtCostPerDay.Text) < 0)
+            if (string.IsNullOrWhiteSpace(txtCostPerDay.Text) || Convert.ToInt32(txtCostPerDay.Text) < 0)
             {
                 ErrorProvider errorProvider7 = new ErrorProvider();
                 errorProvider7.SetError(txtCostPerDay, "Niepoprawy dzienny koszt wypożyczenia");
                 validationPositive = false;
             }
             //BodyType validation
-            if (txtBType.Text == "" || txtBType.Text.Length < 4)
+            if (string.IsNullOrWhiteSpace(txtBType.Text) || txtBType.Text.Length < 4)
             {
                 ErrorProvider errorProvider8 = new ErrorProvider();
                 errorProvider8.SetError(txtBType, "Niepoprawy typ nadwozia samochodu");
                 validationPositive = false;
             }
             //Fuel validation
-            if (txtFuel.Text == "" || txtFuel.Text.Length < 2)
+            if (string.IsNullOrWhiteSpace(txtFuel.Text) || txtFuel.Text.Length < 2)
             {
                 ErrorProvider errorProvider9 = new ErrorProvider();
                 errorProvider9.SetError(txtFuel, "Niepoprawy typ paliwa");
                 validationPositive = false;
             }
             //Doors validation
-            if (txtDoors.Text == "" || Convert.ToInt32(txtDoors.Text) < 2)
+            if (string.IsNullOrWhiteSpace(txtDoors.Text) || Convert.ToInt32(txtDoors.Text) < 2)
             {
                 ErrorProvider errorProvider10 = new ErrorProvider();
                 errorProvider10.SetError(txtDoors, "Niepoprawna ilość drzwi");
                 validationPositive = false;
             }
             // Gearbox validation
-            if (txtGearbox.Text == "" || txtGearbox.Text.Length < 1)
+            if (string.IsNullOrWhiteSpace(txtGearbox.Text) || txtGearbox.Text.Length < 1)
             {
                 ErrorProvider errorProvider10 = new ErrorProvider();
                 errorProvider10.SetError(txtGearbox, "Niepoprawna skrzynia biegów");

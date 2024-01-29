@@ -52,9 +52,10 @@ namespace VehicleRentalApp
 
         private void btnDeleteCar_Click(object sender, EventArgs e)
         {
-            if (Car.CheckIDAvailability(Convert.ToInt32(txtDeleteCar.Text)) == true)
+            if (Car.CheckIDAvailability(Convert.ToInt32(txtDeleteCar.Text)) == true || string.IsNullOrWhiteSpace(txtDeleteCar.Text))
             {
-                MessageBox.Show("Samochód o takim ID nie jest zapisany w bazie");
+                ErrorProvider errorProvider1 = new ErrorProvider();
+                errorProvider1.SetError(txtDeleteCar, "Niepoprawne ID");
             }
             else
             {
@@ -66,9 +67,10 @@ namespace VehicleRentalApp
 
         private void btnDeleteMotorcycle_Click(object sender, EventArgs e)
         {
-            if (Motorcycle.CheckIDAvailability(Convert.ToInt32(txtDeleteMotorcycle.Text)) == true)
+            if (Motorcycle.CheckIDAvailability(Convert.ToInt32(txtDeleteMotorcycle.Text)) == true || string.IsNullOrWhiteSpace(txtDeleteMotorcycle.Text))
             {
-                MessageBox.Show("Motocykl o takim ID nie jest zapisany w bazie");
+                ErrorProvider errorProvider2 = new ErrorProvider();
+                errorProvider2.SetError(txtDeleteMotorcycle, "Niepoprawne ID");
             }
             else
             {

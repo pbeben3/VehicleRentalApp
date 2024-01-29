@@ -53,7 +53,7 @@ namespace VehicleRentalApp
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            if (Classes.User.CheckIDAvailability(Convert.ToInt32(txtDeleteUserID.Text)) == true)
+            if (Classes.User.CheckIDAvailability(Convert.ToInt32(txtDeleteUserID.Text)) == true || !string.IsNullOrWhiteSpace(txtDeleteUserID.Text))
             {
                 MessageBox.Show("Uzytkownik o takim ID nie jest zapisany w bazie");
             }
@@ -69,70 +69,70 @@ namespace VehicleRentalApp
         {
             bool validationPositive = true;
             // UserID validation
-            if (Classes.User.CheckIDAvailability(Convert.ToInt32(txtUserID.Text)) != true || txtUserID.Text == null)
+            if (Classes.User.CheckIDAvailability(Convert.ToInt32(txtUserID.Text)) != true || string.IsNullOrWhiteSpace(txtUserID.Text))
             {
                 ErrorProvider errorProvider = new ErrorProvider();
                 errorProvider.SetError(txtUserID, "To ID użytkownika już istnieje w bazie danych");
                 validationPositive = false;
             }
             // Name validation
-            if (!Regex.IsMatch(txtName.Text, @"^[a-zA-Z]+$") || txtName.Text.Length < 2 || txtName.Text == null)
+            if (!Regex.IsMatch(txtName.Text, @"^[a-zA-Z]+$") || txtName.Text.Length < 2 || string.IsNullOrWhiteSpace(txtName.Text))
             {
                 ErrorProvider errorProvider1 = new ErrorProvider();
                 errorProvider1.SetError(txtName, "Błędne imie");
                 validationPositive = false;
             }
             // LastName validation 
-            if (!Regex.IsMatch(txtLastName.Text, @"^[a-zA-Z]+$") || txtLastName.Text.Length < 2 || txtLastName.Text == null)
+            if (!Regex.IsMatch(txtLastName.Text, @"^[a-zA-Z]+$") || txtLastName.Text.Length < 2 || string.IsNullOrWhiteSpace(txtLastName.Text))
             {
                 ErrorProvider errorProvider2 = new ErrorProvider();
                 errorProvider2.SetError(txtLastName, "Błędne Nazwisko");
                 validationPositive = false;
             }
             // Age validation
-            if (Convert.ToInt32(txtAge.Text) < 18 || txtAge.Text == null)
+            if (Convert.ToInt32(txtAge.Text) < 18 || string.IsNullOrWhiteSpace(txtAge.Text))
             {
                 ErrorProvider errorProvider3 = new ErrorProvider();
                 errorProvider3.SetError(txtAge, "Błędny wiek");
                 validationPositive = false;
             }
             // Adress validation
-            if (!Regex.IsMatch(txtAdress.Text, @"[a-zA-Z]") || !Regex.IsMatch(txtAdress.Text, @"\d") || txtAdress.Text == null)
+            if (!Regex.IsMatch(txtAdress.Text, @"[a-zA-Z]") || !Regex.IsMatch(txtAdress.Text, @"\d") || string.IsNullOrWhiteSpace(txtAdress.Text))
             {
                 ErrorProvider errorProvider4 = new ErrorProvider();
                 errorProvider4.SetError(txtAdress, "Adres składa się z co najmniej jednej litery i jednej cyfry");
                 validationPositive = false;
             }
             // Email validation
-            if (!txtEmail.Text.Contains("@") || txtEmail.Text.Length < 5 || txtEmail.Text == null)
+            if (!txtEmail.Text.Contains("@") || txtEmail.Text.Length < 5 || string.IsNullOrWhiteSpace(txtEmail.Text))
             {
                 ErrorProvider errorProvider5 = new ErrorProvider();
                 errorProvider5.SetError(txtEmail, "Niepoprawny Email");
                 validationPositive = false;
             }
             // PhoneNumber validation
-            if(txtPhoneNumber.Text.Length != 9 || !txtPhoneNumber.Text.All(Char.IsDigit) || txtPhoneNumber.Text == null)
+            if(txtPhoneNumber.Text.Length != 9 || !txtPhoneNumber.Text.All(Char.IsDigit) || string.IsNullOrWhiteSpace(txtPhoneNumber.Text))
             {
                 ErrorProvider errorProvider6 = new ErrorProvider();
                 errorProvider6.SetError(txtPhoneNumber, "Niepoprawny numer telefonu");
                 validationPositive = false;
             }
             // Role validation
-            if (Enum.TryParse<Role>(txtRole.Text, out _) == false || txtRole.Text == null)
+            if (Enum.TryParse<Role>(txtRole.Text, out _) == false || string.IsNullOrWhiteSpace(txtRole.Text))
             {
                 ErrorProvider errorProvider7 = new ErrorProvider();
                 errorProvider7.SetError(txtRole, "Niepoprawna rola");
                 validationPositive = false;
             }
             //Login validation 
-            if (txtLogin.Text.Length < 4 || txtLogin.Text == null)
+            if (txtLogin.Text.Length < 4 || string.IsNullOrWhiteSpace(txtLogin.Text))
             {
                 ErrorProvider errorProvider8 = new ErrorProvider();
                 errorProvider8.SetError(txtLogin, "Niepoprawny login");
                 validationPositive = false;
             }
             //Password validation 
-            if (txtPassword.Text.Length < 6 || !txtPassword.Text.Any(char.IsDigit) || txtPassword.Text == null)
+            if (txtPassword.Text.Length < 6 || !txtPassword.Text.Any(char.IsDigit) || string.IsNullOrWhiteSpace(txtPassword.Text))
             {
                 ErrorProvider errorProvider9 = new ErrorProvider();
                 errorProvider9.SetError(txtPassword, "Niepoprawne hasło");

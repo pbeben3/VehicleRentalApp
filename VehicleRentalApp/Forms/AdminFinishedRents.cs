@@ -33,8 +33,32 @@ namespace VehicleRentalApp.Forms
 
         private void btnPrintRent_Click(object sender, EventArgs e)
         {
-            Rents rent = Rents.MapDataToObject(Convert.ToInt32(txtRentID.Text));
-            rent.PrintReceipExcel(rent);
+            if (validateReceipt() == true)
+            {
+                Rents rent = Rents.MapDataToObject(Convert.ToInt32(txtRentID.Text));
+                rent.PrintReceipExcel(rent);
+            }
+            else
+            {
+                MessageBox.Show("ID niepoprawne");
+            }
+        }
+        private bool validateReceipt()
+        {
+            bool validationPositive = true;
+            if (string.IsNullOrWhiteSpace(txtRentID.Text))
+            {
+                validationPositive = false;
+                ErrorProvider errorProvider1 = new ErrorProvider();
+                errorProvider1.SetError(txtRentID, "Pole id nie może być puste");
+            }
+            else if (!int.TryParse(txtRentID.Text, out _))
+            {
+                validationPositive = false;
+                ErrorProvider errorProvider2 = new ErrorProvider();
+                errorProvider2.SetError(txtRentID, "Pole musi być liczbą ");
+            }
+            return validationPositive;
         }
     }
 }
