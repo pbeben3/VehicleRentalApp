@@ -16,7 +16,7 @@ namespace VehicleRentalApp.Classes
                 MessageBox.Show("Podaj login i hasło!");
                 return -1; 
             }
-
+            // repaired
             using (SqlConnection connection = DBConnection.GetConnection())
             {
                 connection.Open();

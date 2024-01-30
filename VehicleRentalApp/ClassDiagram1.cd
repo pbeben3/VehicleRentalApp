@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VehicleRentalApp.Program">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleRentalApp.Classes.Car">
+    <Position X="9.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAQAAAAAIAIAAIAAAAAAAQgABAAAAAAA=</HashCode>
+      <FileName>Classes\Car.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleRentalApp.Classes.CarDatabaseManager">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAgAAAAAAEAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\CarDatabaseManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VehicleRentalApp.Classes.DBConnection">
+    <Position X="4" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Classes\DBConnection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleRentalApp.Classes.LoginManager">
+    <Position X="1.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\LoginManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleRentalApp.Classes.Motorcycle">
+    <Position X="11" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAIAIABBAAAAAAAAAQwAAAAAAAAA=</HashCode>
+      <FileName>Classes\Motorcycle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleRentalApp.Classes.MotorcycleDatabaseManager">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAAAABAAAAAAAAAAAIAAAAgAAA=</HashCode>
+      <FileName>Classes\MotorcycleDatabaseManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VehicleRentalApp.Classes.RentDatabaseManager">
+    <Position X="4" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AESAAAAAAAABAAAAAAAAQAAABAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Classes\RentDatabaseManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VehicleRentalApp.Classes.Rents">
+    <Position X="5.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BESAAAAAAAAVAAAAAAQAQBgABAAEgAEAQAAIAAAAAAA=</HashCode>
+      <FileName>Classes\Rents.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleRentalApp.Classes.User">
+    <Position X="7.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIACAAAAAAEEAAQAwAAAgAAAACQAAQAQAACAo=</HashCode>
+      <FileName>Classes\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleRentalApp.Classes.UserDatabaseManager">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAACAI=</HashCode>
+      <FileName>Classes\UserDatabaseManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VehicleRentalApp.Classes.Vehicle">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAABAAEAAAAAiAABQAgAgAABCAA=</HashCode>
+      <FileName>Classes\Vehicle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VehicleRentalApp.Classes.VehicleDatabaseManager">
+    <Position X="2.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Classes\VehicleDatabaseManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Enum Name="VehicleRentalApp.Classes.Role">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Classes\User.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
