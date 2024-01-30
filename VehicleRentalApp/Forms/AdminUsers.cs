@@ -53,7 +53,7 @@ namespace VehicleRentalApp
 
         private void btnDeleteUser_Click(object sender, EventArgs e)
         {
-            if (Classes.User.CheckIDAvailability(Convert.ToInt32(txtDeleteUserID.Text)) == true || !string.IsNullOrWhiteSpace(txtDeleteUserID.Text))
+            if (Classes.User.CheckIDAvailability(Convert.ToInt32(txtDeleteUserID.Text)) == false || !string.IsNullOrWhiteSpace(txtDeleteUserID.Text))
             {
                 MessageBox.Show("Uzytkownik o takim ID nie jest zapisany w bazie");
             }
